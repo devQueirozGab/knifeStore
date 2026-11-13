@@ -25,4 +25,8 @@ app.use('/api', publicRouter);
 app.use(express.static(path.join(path.dirname(fileURLToPath(import.meta.url)), '../public')));
 app.use((_q, res) => res.status(404).json({ error: 'Não encontrado.' }));
 app.use((err, _q, res, _n) => { if (err?.type === 'entity.too.large') return res.status(413).json({ error: 'Arquivo excede o limite permitido.' }); if (err?.type === 'entity.parse.failed') return res.status(400).json({ error: 'Requisição inválida.' }); console.error(err); res.status(500).json({ error: 'Erro interno.' }); });
-app.listen(process.env.PORT || 3000, () => console.log('Dark Tactical no ar'));
+// Vercel importa a instância Express a partir de server.js na raiz.
+// Localmente, o projeto continua usando `npm run dev`/`npm start`.
+if (!process.env.VERCEL) app.listen(process.env.PORT || 3000, () => console.log('Dark Tactical no ar'));
+
+export default app;

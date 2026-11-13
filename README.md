@@ -36,3 +36,7 @@ O site público pode exigir uma verificação Cloudflare Turnstile antes de libe
 3. Reinicie o servidor. Sem as três variáveis, o portão fica desligado para facilitar o desenvolvimento local.
 
 O segredo do Turnstile nunca vai ao navegador: o servidor valida o token diretamente com a API Siteverify do Cloudflare.
+
+## Vercel
+
+O arquivo `server.js` na raiz exporta o app Express no formato reconhecido pela Vercel. No painel, deixe **Build Command** e **Output Directory** vazios e use `npm install` como comando de instalação. Após alterar variáveis de ambiente, sempre faça um novo deploy. Teste o Turnstile na URL publicada pela Vercel, não em `localhost`.
