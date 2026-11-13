@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "node --watch server/index.js",
-    "start": "node server/index.js",
+    "dev": "node --watch server.js",
+    "start": "node server.js",
     "test": "node --test",
     "build:css": "tailwindcss -i public/css/tailwind.css -o public/css/tailwind-build.css --minify"
   },
