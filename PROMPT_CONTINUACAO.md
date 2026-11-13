@@ -66,7 +66,7 @@ Plataforma web de **catálogo digital informativo** + **painel administrativo (C
 
 **Verificação Cloudflare desta etapa (12/11/2026):** `server/access-gate.js` valida o Turnstile apenas quando o visitante clica em **Solicitar pelo WhatsApp** dentro do carrinho. O catálogo, a busca e o painel continuam acessíveis normalmente. Com `CF_TURNSTILE_SITE_KEY`, `CF_TURNSTILE_SECRET` e `ACCESS_GATE_SECRET` preenchidas, o token é validado server-side pela Siteverify e, só então, o navegador abre a mensagem pré-preenchida para o número da loja. Em desenvolvimento, sem as três variáveis, a solicitação permanece indisponível.
 
-**Deploy Vercel (12/11/2026):** foi incluído `server.js` na raiz, que exporta a aplicação Express como default export no local de entrada reconhecido pela Vercel. `server/index.js` ainda faz `listen()` apenas localmente; no ambiente Vercel ele exporta a instância sem iniciar um listener próprio.
+**Deploy Vercel (12/11/2026):** `server.js` na raiz importa e exporta a aplicação Express como default export; `vercel.json` define o framework como `express`. Os dois arquivos são necessários para que a Vercel encaminhe `/api/*` ao Express em vez de responder 404 pela CDN. `server/index.js` ainda faz `listen()` apenas localmente; no ambiente Vercel ele exporta a instância sem iniciar um listener próprio.
 
 **Ainda não feito (próximos passos, em ordem sugerida):**
 1. Otimização automática das imagens com Sharp e limpeza de arquivos órfãos no Storage.
