@@ -9,6 +9,7 @@ const cat = document.querySelector('#cat');
 const ord = document.querySelector('#ord');
 const list = document.querySelector('#list');
 const count = document.querySelector('#result-count');
+q.value = new URLSearchParams(location.search).get('q') || '';
 
 try {
   const [categories, items] = await Promise.all([api('/api/categories'), api('/api/items')]);
