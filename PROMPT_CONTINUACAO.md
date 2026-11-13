@@ -66,7 +66,7 @@ Plataforma web de **catálogo digital informativo** + **painel administrativo (C
 
 **Portão Cloudflare desta etapa (12/11/2026):** `server/access-gate.js` implementa um portão opcional de entrada com Cloudflare Turnstile. Quando `CF_TURNSTILE_SITE_KEY`, `CF_TURNSTILE_SECRET` e `ACCESS_GATE_SECRET` estão preenchidas, o site público e suas APIs exigem um token validado server-side pela Siteverify antes de liberar acesso; `/admin` permanece disponível. A tela fica em `public/access.html`. Em desenvolvimento, sem as três variáveis, o portão fica desligado.
 
-**Deploy Vercel (12/11/2026):** foi incluído `server.js` na raiz, que exporta a aplicação Express como default export no local de entrada reconhecido pela Vercel. `server/index.js` ainda faz `listen()` apenas localmente; no ambiente Vercel ele exporta a instância sem iniciar um listener próprio.
+**Deploy Vercel (12/11/2026):** foi incluído `server.js` na raiz, que exporta a aplicação Express como default export no local de entrada reconhecido pela Vercel. `server/index.js` ainda faz `listen()` apenas localmente; no ambiente Vercel ele exporta a instância sem iniciar um listener próprio. O `middleware.js` na raiz valida o cookie assinado antes de a CDN da Vercel servir conteúdo estático, pois de outra forma páginas dentro de `public/` podem contornar o Express e não mostrar o Turnstile.
 
 **Ainda não feito (próximos passos, em ordem sugerida):**
 1. Otimização automática das imagens com Sharp e limpeza de arquivos órfãos no Storage.

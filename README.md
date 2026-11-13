@@ -39,4 +39,4 @@ O segredo do Turnstile nunca vai ao navegador: o servidor valida o token diretam
 
 ## Vercel
 
-O arquivo `server.js` na raiz exporta o app Express no formato reconhecido pela Vercel. No painel, deixe **Build Command** e **Output Directory** vazios e use `npm install` como comando de instalação. Após alterar variáveis de ambiente, sempre faça um novo deploy. Teste o Turnstile na URL publicada pela Vercel, não em `localhost`.
+O arquivo `server.js` na raiz exporta o app Express no formato reconhecido pela Vercel. O `middleware.js` também é enviado: ele verifica o cookie assinado antes da CDN entregar páginas públicas, evitando que arquivos estáticos em `public/` contornem o portão. No painel, deixe **Build Command** e **Output Directory** vazios e use `npm install` como comando de instalação. Após alterar variáveis de ambiente ou este código, sempre faça um novo deploy. Teste o Turnstile na URL publicada pela Vercel, não em `localhost`.

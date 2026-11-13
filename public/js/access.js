@@ -1,5 +1,9 @@
 const status = document.querySelector('#access-status');
 const copy = document.querySelector('#access-copy');
+const requestedPath = new URLSearchParams(location.search).get('continue');
+const destination = requestedPath && requestedPath.startsWith('/') && !requestedPath.startsWith('//')
+  ? requestedPath
+  : '/';
 const config = await fetch('/api/access/config').then(response => response.json()).catch(() => ({ enabled: false }));
 
 if (!config.enabled) {
@@ -22,7 +26,7 @@ if (!config.enabled) {
           const result = await response.json();
           if (!response.ok) throw new Error(result.error);
           status.textContent = 'ACESSO LIBERADO';
-          location.replace('/');
+          location.replace(destination);
         } catch (error) {
           status.textContent = error.message || 'VERIFICAÇÃO NÃO ACEITA';
           window.turnstile.reset();
