@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use('/api', rateLimit({ windowMs: 60e3, limit: 120, standardHeaders: true }));
 app.use('/api/auth', authRouter);
 app.use('/api/admin', adminRouter);
-app.use(accessRouter(express, path, path.join(path.dirname(fileURLToPath(import.meta.url)), '../public')));
+app.use(accessRouter(express));
 app.use('/api', publicRouter);
 app.use(express.static(path.join(path.dirname(fileURLToPath(import.meta.url)), '../public')));
 app.use((_q, res) => res.status(404).json({ error: 'Não encontrado.' }));

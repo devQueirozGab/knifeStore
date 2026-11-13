@@ -27,16 +27,16 @@ Antes de publicar, configure HTTPS, `NODE_ENV=production`, proxy confiável corr
 
 O carrinho é persistido no navegador do visitante e abre em um modal, sem página separada. Defina o preço e as opções (por exemplo, acabamento ou orientação) de cada faca no CMS após aplicar a migração. O resumo pode ser copiado para atendimento; pagamentos e pedidos definitivos exigem uma integração de checkout própria.
 
-## Portão de entrada Cloudflare
+## Verificação Cloudflare para solicitar atendimento
 
-O site público pode exigir uma verificação Cloudflare Turnstile antes de liberar catálogo, busca e APIs públicas. O painel `/admin` não é bloqueado por esse portão.
+O catálogo continua livre para navegação. A verificação Cloudflare Turnstile aparece somente ao clicar em **Solicitar pelo WhatsApp** no carrinho; depois de aprovada, ela abre uma mensagem pronta para o atendimento da loja.
 
 1. Crie um widget Turnstile do tipo **Managed** no painel Cloudflare e configure o domínio de produção.
 2. Preencha no `.env` as variáveis `CF_TURNSTILE_SITE_KEY`, `CF_TURNSTILE_SECRET` e `ACCESS_GATE_SECRET` (uma string aleatória longa, exclusiva do projeto).
-3. Reinicie o servidor. Sem as três variáveis, o portão fica desligado para facilitar o desenvolvimento local.
+3. Reinicie o servidor. Sem as três variáveis, a verificação de solicitação fica indisponível para facilitar o desenvolvimento local.
 
 O segredo do Turnstile nunca vai ao navegador: o servidor valida o token diretamente com a API Siteverify do Cloudflare.
 
 ## Vercel
 
-O arquivo `server.js` na raiz exporta o app Express no formato reconhecido pela Vercel. O `middleware.js` também é enviado: ele verifica o cookie assinado antes da CDN entregar páginas públicas, evitando que arquivos estáticos em `public/` contornem o portão. No painel, deixe **Build Command** e **Output Directory** vazios e use `npm install` como comando de instalação. Após alterar variáveis de ambiente ou este código, sempre faça um novo deploy. Teste o Turnstile na URL publicada pela Vercel, não em `localhost`.
+O arquivo `server.js` na raiz exporta o app Express no formato reconhecido pela Vercel. No painel, deixe **Build Command** e **Output Directory** vazios e use `npm install` como comando de instalação. Após alterar variáveis de ambiente ou este código, sempre faça um novo deploy. Teste o Turnstile na URL publicada pela Vercel, não em `localhost`.
