@@ -68,6 +68,8 @@ Plataforma web de **catálogo digital informativo** + **painel administrativo (C
 
 **Deploy Vercel (12/11/2026):** `server.js` na raiz importa e exporta a aplicação Express como default export; `vercel.json` define o framework como `express`; e `api/[...path].js` oferece uma função abrangente para todo `/api/*`. Assim, a API continua chegando ao Express mesmo se a detecção automática falhar. `server/index.js` ainda faz `listen()` apenas localmente; no ambiente Vercel ele exporta a instância sem iniciar um listener próprio.
 
+**Correção login admin / Cloudflare (13/11/2026):** `server/lib/supabase.js` não lança mais erro na importação quando faltam variáveis do Supabase; `server/index.js` responde 503 em JSON nas rotas de banco, e `/api/access/*` (Turnstile) segue funcionando. O limite de 5 logins/15 min agora usa o cabeçalho `cf-connecting-ip` (IP real atrás do Cloudflare) em vez de `req.ip`. O Turnstile continua apenas no clique de **Solicitar pelo WhatsApp**. Requer, na Vercel (Production): as 3 variáveis do Supabase e as 3 do Turnstile, seguidas de novo deploy.
+
 **Ainda não feito (próximos passos, em ordem sugerida):**
 1. Otimização automática das imagens com Sharp e limpeza de arquivos órfãos no Storage.
 3. Integrar Swiper, Anime.js e Lucide somente se a necessidade justificar o peso adicional; a galeria, animações discretas e ícones atuais são nativos e leves.

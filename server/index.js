@@ -9,6 +9,7 @@ import { publicRouter } from './routes/public.js';
 import { authRouter } from './routes/auth.js';
 import { adminRouter } from './routes/admin.js';
 import { accessRouter } from './access-gate.js';
+import { supabaseConfigured } from './lib/supabase.js';
 const app = express();
 app.set('trust proxy', 1); // atrás do Cloudflare
 app.disable('x-powered-by');
@@ -18,6 +19,9 @@ app.use(helmet({ contentSecurityPolicy: { directives: {
 app.use(express.json({ limit: '100kb' }));
 app.use(cookieParser());
 app.use('/api', rateLimit({ windowMs: 60e3, limit: 120, standardHeaders: true }));
+// Sem Supabase configurado, responde JSON claro em vez de derrubar a função.
+const needsDb = (req, res, next) => supabaseConfigured || req.path.startsWith('/access') ? next() : res.status(503).json({ error: 'Servidor sem configuração do Supabase. Defina as variáveis de ambiente e faça um novo deploy.' });
+app.use('/api', needsDb);
 app.use('/api/auth', authRouter);
 app.use('/api/admin', adminRouter);
 app.use(accessRouter(express));

@@ -7,6 +7,8 @@ export const authRouter = Router();
 const limiter = rateLimit({
   windowMs: 15 * 60e3,
   limit: 5,
+  // Atrás do Cloudflare, req.ip pode ser o IP da borda (compartilhado). Usa o IP real do visitante.
+  keyGenerator: req => req.get('cf-connecting-ip') || req.ip,
   standardHeaders: true,
   message: { error: 'Muitas tentativas. Aguarde 15 minutos.' }
 });
