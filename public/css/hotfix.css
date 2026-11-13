@@ -1,0 +1,10 @@
+/* Correção de título: evita que "PRECISÃO" ultrapasse a margem em telas compactas. */
+@media (max-width: 900px){
+  .hero-grid{grid-template-columns:1fr;min-height:calc(100svh - 62px);padding-bottom:3.5rem}
+  .hero-meta{padding-top:2rem}.hero-readout{display:none}.hero-copy{max-width:100%;min-width:0}
+  .hero h1{font-size:clamp(3.9rem,11.4vw,6.1rem);line-height:.8;max-width:100%;overflow-wrap:anywhere}
+}
+@media (max-width: 520px){.hero h1{font-size:clamp(3.45rem,16.5vw,5.2rem)}}
+
+/* Abertura breve: faca em perfil lateral, linha de leitura e informação de sistema. */
+.blade-loader{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#080909;color:#f5f5f5;transition:opacity .25s ease,visibility .25s ease}.blade-loader.is-ready{opacity:0;visibility:hidden}.blade-loader__body{display:grid;justify-items:center;gap:1rem;width:min(80vw,370px);font:500 .58rem 'IBM Plex Mono',monospace;letter-spacing:.14em}.blade-loader__knife{width:100%;height:auto;animation:knife-enter .5s cubic-bezier(.22,.61,.36,1) both}.blade-loader__line{height:1px;width:100%;background:#353a3b;position:relative;overflow:hidden}.blade-loader__line:after{content:'';position:absolute;top:0;bottom:0;width:28%;background:#f5f5f5;animation:knife-scan .62s ease-in-out infinite}.blade-loader__status{color:#8c9394}@keyframes knife-enter{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}@keyframes knife-scan{from{transform:translateX(-115%)}to{transform:translateX(370%)}}@media(prefers-reduced-motion:reduce){.blade-loader__knife,.blade-loader__line:after{animation:none}}

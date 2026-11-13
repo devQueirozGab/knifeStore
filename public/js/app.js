@@ -1,0 +1,22 @@
+import { ensureUiLibraries } from './libraries.js';
+import { mountShopUi } from './cart.js';
+
+ensureUiLibraries();
+mountShopUi();
+const loader = document.createElement('div');
+loader.className = 'blade-loader';
+loader.setAttribute('aria-hidden', 'true');
+loader.innerHTML = `<div class="blade-loader__body"><svg class="blade-loader__knife" viewBox="0 0 360 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 29H83L108 42H271L331 50L271 58H108L83 71H12V29Z" stroke="currentColor" stroke-width="2"/><path d="M108 42L289 42L331 50L289 58H108" stroke="currentColor" stroke-width="1"/><path d="M83 29V71" stroke="currentColor" stroke-width="1"/><path d="M31 29V71M49 29V71" stroke="currentColor" stroke-width="1"/><circle cx="65" cy="50" r="5" stroke="currentColor" stroke-width="1"/><path d="M12 50H83" stroke="currentColor" stroke-width="1"/></svg><div class="blade-loader__line"></div><span>CALIBRANDO CORTE</span><span class="blade-loader__status">DT / SYSTEM READY</span></div>`;
+document.body.append(loader);
+const dismissLoader = () => { if (!loader.isConnected) return; loader.classList.add('is-ready'); setTimeout(() => loader.remove(), 300); };
+window.addEventListener('load', () => setTimeout(dismissLoader, 180), { once: true });
+setTimeout(dismissLoader, 1100);
+
+export const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+export const api = async (url, opts = {}) => { const csrf = document.cookie.match(/csrf=([^;]+)/)?.[1]; const r = await fetch(url, { ...opts, credentials: 'same-origin', headers: { 'Content-Type': 'application/json', ...(csrf && { 'x-csrf-token': csrf }), ...opts.headers }, body: opts.body && typeof opts.body !== 'string' ? JSON.stringify(opts.body) : opts.body }); const d = await r.json().catch(() => ({})); if (!r.ok) throw new Error(d.error || 'Erro inesperado.'); return d; };
+export const toast = m => { const t = Object.assign(document.createElement('div'), { className: 'toast', role: 'status', textContent: m }); document.body.append(t); setTimeout(() => t.remove(), 3500); };
+export const itemRow = (i, n) => `<a class="catalog-row" href="/item.html?id=${encodeURIComponent(i.id)}"><span class="catalog-index mono">${String(n + 1).padStart(2, '0')}</span><h3>${esc(i.name)}</h3><span class="cat">${esc(i.categories?.name || 'Sem classe')}</span><span class="summary">${esc((i.description || 'Sem descrição técnica.').slice(0, 130))}</span><span class="row-arrow" aria-hidden="true">↗</span></a>`;
+export const formatPrice = cents => Number(cents) > 0 ? new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(cents) / 100) : 'CONSULTAR PREÇO';
+export const productCard = item => `<article class="product-card"><a class="product-card__image" href="/item.html?id=${encodeURIComponent(item.id)}" aria-label="Ver ${esc(item.name)}">${item.main_image ? `<img src="${esc(item.main_image)}" alt="${esc(item.name)}" loading="lazy">` : '<span class="product-card__empty mono">IMAGEM EM BREVE</span>'}<span class="product-card__code mono">${esc(item.code || 'DT / IMPORT')}</span>${item.featured ? '<span class="product-card__flag mono">DESTAQUE</span>' : ''}</a><div class="product-card__body"><p class="mono">${esc(item.categories?.name || 'LÂMINA IMPORTADA')}</p><a href="/item.html?id=${encodeURIComponent(item.id)}"><h3>${esc(item.name)}</h3></a><div class="product-card__bottom"><strong>${formatPrice(item.price_cents)}</strong>${Number(item.price_cents) > 0 && !(item.options || []).length ? `<button class="product-card__add" type="button" data-quick-add="${esc(item.id)}">ADICIONAR <span>+</span></button>` : `<a class="product-card__view" href="/item.html?id=${encodeURIComponent(item.id)}">${(item.options || []).length ? 'ESCOLHER OPÇÕES' : 'VER PRODUTO'} <span>↗</span></a>`}</div></div></article>`;
+export const setupMenu = () => { const button = document.querySelector('.menu-toggle'); const nav = document.querySelector('#site-nav'); if (!button || !nav) return; button.addEventListener('click', () => { const open = nav.classList.toggle('open'); button.setAttribute('aria-expanded', String(open)); }); };
+export const reveal = () => { if (!('IntersectionObserver' in window)) return; const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add('on')), { threshold: .15 }); document.querySelectorAll('.in').forEach(n => io.observe(n)); };

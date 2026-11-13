@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gerenciar | Dark Tactical</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css"></head>
+<body>
+<header class="top"><div class="wrap"><a class="logo" href="/admin/">DARK TACTICAL / ADMIN</a><nav><a href="/admin/">Painel</a><a href="/catalog.html">Ver site</a></nav></div></header>
+<main><section><div class="wrap">
+<div class="admin-head"><div><p class="mono">CMS / CONTROLE DE CONTEÚDO</p><h2>Gerenciar acervo</h2></div><button class="btn ghost" id="logout">Sair</button></div>
+<div class="tools"><button class="btn" id="items-tab" type="button">Itens</button><button class="btn ghost" id="cats-tab" type="button">Categorias</button><button class="btn ghost" id="new" type="button">+ Novo registro</button></div>
+<p class="mono" id="notice" role="status" aria-live="polite"></p><div id="listing"></div>
+<div id="editor" class="admin-editor" hidden><div class="admin-head"><h2 id="form-title">Novo item</h2><button class="btn ghost" id="cancel" type="button">Fechar</button></div>
+<form id="record-form"><div id="fields" class="admin-fields"></div><div class="tools"><button class="btn" type="submit">Salvar registro</button><button class="btn ghost" id="cancel-bottom" type="button">Cancelar</button></div></form></div>
+</div></section></main><script type="module" src="/js/admin-manage.js"></script></body></html>

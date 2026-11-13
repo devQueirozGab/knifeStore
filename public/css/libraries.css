@@ -1,0 +1,13 @@
+.record-gallery{display:block;background:var(--panel)}
+.knife-swiper{position:relative;min-height:min(65vw,620px)}
+.knife-swiper .swiper-slide{display:grid;place-items:center;background:#0d0f0f}
+.knife-swiper img{width:100%;height:min(65vw,620px);object-fit:cover}
+.knife-swiper .swiper-button-next,.knife-swiper .swiper-button-prev{width:42px;height:42px;background:rgba(8,9,9,.85);border:1px solid var(--line);color:var(--fg)}
+.knife-swiper .swiper-button-next:after,.knife-swiper .swiper-button-prev:after{display:none}
+.knife-swiper .swiper-button-next svg,.knife-swiper .swiper-button-prev svg{width:18px}
+.knife-swiper .swiper-pagination{bottom:1rem;color:var(--fg);font:11px var(--mono);letter-spacing:.12em}
+.record-head .badge{align-self:start;margin-top:.4rem;padding:.45rem .6rem;border-radius:0;font-size:.6rem;color:var(--muted)}
+.record-description .alert{border-radius:0;background:#111415;border:1px solid var(--line);color:var(--muted);box-shadow:none}
+.record-description .alert svg{flex:none;width:18px;color:var(--fg)}
+@media(max-width:720px){.knife-swiper,.knife-swiper img{height:70vw;min-height:0}.record-head .badge{display:inline-flex;width:max-content}}
+.blade-loader{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#080909;color:#f5f5f5;transition:opacity .35s ease,visibility .35s ease}.blade-loader.is-ready{opacity:0;visibility:hidden}.blade-loader__body{display:grid;justify-items:center;gap:1rem;width:min(78vw,380px);font:500 .62rem 'IBM Plex Mono',monospace;letter-spacing:.16em}.blade-loader__knife{width:100%;animation:blade-draw .9s cubic-bezier(.22,.61,.36,1) both}.blade-loader__line{height:1px;width:100%;background:#555b5d;position:relative;overflow:hidden}.blade-loader__line:after{content:'';position:absolute;inset:0 auto 0 0;width:38%;background:#f5f5f5;animation:blade-scan .72s ease-in-out infinite}@keyframes blade-draw{from{opacity:0;transform:translateX(-22px) scaleX(.88)}to{opacity:1;transform:none}}@keyframes blade-scan{0%{transform:translateX(-110%)}100%{transform:translateX(290%)}}@media(max-width:720px){.hero h1{font-size:clamp(3.75rem,20vw,5.25rem);letter-spacing:0;max-width:100%;overflow-wrap:anywhere}.hero-copy{min-width:0}.hero-grid{overflow:visible}.blade-loader__body{width:min(84vw,340px)}}@media(prefers-reduced-motion:reduce){.blade-loader__knife,.blade-loader__line:after{animation:none}}
