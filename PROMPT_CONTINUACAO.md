@@ -74,6 +74,8 @@ Plataforma web de **catálogo digital informativo** + **painel administrativo (C
 
 **Correção do 404 no login admin (13/11/2026):** o navegador recebia `404 NOT_FOUND` da Vercel em `/api/auth/login`, antes do Express. Como `server.js` já é o entrypoint Express reconhecido pela Vercel, a função catch-all separada em `api/` foi removida para evitar sobreposição de rotas. Após publicar, conferir no painel Vercel se o **Root Directory** é a raiz do repositório, **Framework Preset** é Express e **Build Command**/**Output Directory** estão vazios.
 
+**Privacidade e créditos (13/11/2026):** criada `public/privacy.html`, acessível nos rodapés das páginas públicas. A política descreve o carrinho em `localStorage`, contato via WhatsApp, Turnstile, login administrativo, cookies e provedores externos. Controlador e canal de privacidade estão identificados provisoriamente como Dark Tactical e o WhatsApp já divulgado; atualizar quando houver razão social/CNPJ e canal definitivo. Os rodapés exibem créditos de desenvolvimento para DevQueiroz e assistência de UI para Hiro. A revisão de segurança delegada não encontrou vulnerabilidades concretas no escopo analisado.
+
 **Ainda não feito (próximos passos, em ordem sugerida):**
 1. Otimização automática das imagens com Sharp e limpeza de arquivos órfãos no Storage.
 3. Integrar Swiper, Anime.js e Lucide somente se a necessidade justificar o peso adicional; a galeria, animações discretas e ícones atuais são nativos e leves.
@@ -82,6 +84,7 @@ Plataforma web de **catálogo digital informativo** + **painel administrativo (C
 7. Cloudflare: DNS proxied, SSL Full (Strict), WAF, regras de rate limit, Turnstile no login; só aceitar tráfego do Cloudflare na origem.
 8. Remover `'unsafe-inline'` da CSP movendo os scripts inline para arquivos em `public/js/`.
 9. Backups (Supabase PITR/dump agendado) e testes.
+10. Atualizar a política de privacidade com a identificação legal do controlador e contato definitivo.
 
 ## 5. Como rodar
 
